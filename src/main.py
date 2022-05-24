@@ -18,7 +18,7 @@ class Buffer:
         line,sep,self.buffer = self.buffer.partition(b'\r\n')
         return line.decode()
 
-async def get_setting(setting):
+def get_setting(setting):
 	setting = setting.upper()
 	with open('./settings.blr.config') as set_file:
 		for x in set_file.read().split('\n'):
@@ -28,6 +28,17 @@ async def get_setting(setting):
 
 def runtime(command):
 	y = command.split('--').strip(' ')
+	main_cmd = command.split(' ')[0]
+	valid_commands = ['chvar','advar','dlvar','rnvar']
+	z = []
+	if main_cmd in valid_commands:
+		for x in y:
+			b = x.split('=')
+			x = x.lstrip(f"{b[0]}=").strip('"')
+			z.append({f'{b[0]}':x})
+		
+	else:
+		return 0
 
 
 
