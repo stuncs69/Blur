@@ -13,8 +13,8 @@ async def get_setting(setting):
 
 def main():
 	while True:
-		s = socket.socket().setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADRR).bind(('0.0.0.0',7060)).listen(5)
-		
+		s = socket.socket().setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADRR).bind(('0.0.0.0',get_setting('port'))).listen(5)
+
 
 
 if __name__ == "__main__":
