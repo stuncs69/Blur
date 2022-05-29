@@ -3,6 +3,21 @@ import threading as thr
 
 mem = []
 
+from cryptography.fernet import Fernet
+
+class Encr:
+	def __init__(self,key):
+		self.key = key
+	
+	def encrypt(self,data):
+		f = Fernet(self.key)
+		return f.encrypt(data)
+	
+	def decrypt(self,data):
+		f = Fernet(self.key)
+		return f.decrypt(data)
+
+
 class Buffer:
 
     def __init__(self,sock):
@@ -48,7 +63,7 @@ def main():
 	while True:
 		s  = socket.socket().setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADRR).bind(('0.0.0.0',get_setting('port'))).listen(5)
 		y, adrr = s.accept()
-		print(f'{addr} CONNECT')
+		print(f'{adrr} CONNECT')
 		with y:
 			z = Buffer(y)
 			while True:
